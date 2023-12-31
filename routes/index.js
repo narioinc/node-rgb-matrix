@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.json({});
@@ -8,7 +9,9 @@ router.get('/', function(req, res, next) {
 
 /* GET home page. */
 router.post('/mode', function(req, res, next) {
-  res.json({})
+  var rgbmatrix = req.app.get('matrix');
+  //console.log(rgbmatrix)
+  res.json({"status": "mode set"})
 });
 
 module.exports = router;

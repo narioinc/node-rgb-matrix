@@ -3,8 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const matrix = require('rpi-led-matrix');
+const { createCanvas, loadImage } = require('canvas')
+const canvas = createCanvas(128, 64)
 
 var indexRouter = require('./routes/index');
+var demoRouter = require('./routes/demo');
+
 
 var app = express();
 
@@ -14,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
+app.use('/demo', demoRouter)
 
 
 // catch 404 and forward to error handler
@@ -30,5 +36,30 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
 });
+
+//*************************** */
+// CREATE MATRIX OBJECT
+//
+//**************************** */
+const matrixOptions = {
+  ...matrix.LedMatrix.defaultMatrixOptions(),
+  rows: 64,
+  cols: 64,
+  chainLength: 2,
+  hardwareMapping: matrix.GpioMapping.Regular,
+  parallel: 1,
+}
+
+console.log("matrix options: ", JSON.stringify(matrixOptions, null, 2))
+
+const runtimeOptions = {
+  ...matrix.LedMatrix.defaultRuntimeOptions(),
+  gpioSlowdown: 4,
+  dropPrivileges: matrix.RuntimeFlag.Off
+}
+
+const rgbmatrix = new matrix.LedMatrix(matrixOptions, runtimeOptions);
+app.set("matrix", rgbmatrix);
+app.set("canvas", canvas);
 
 module.exports = app;
