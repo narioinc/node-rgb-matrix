@@ -59,6 +59,7 @@ const runtimeOptions = {
 }
 
 const rgbmatrix = new matrix.LedMatrix(matrixOptions, runtimeOptions);
+rgbmatrix.brightness(50).sync();
 app.set("matrix", rgbmatrix);
 app.set("canvas", canvas);
 

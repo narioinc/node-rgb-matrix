@@ -20,9 +20,21 @@ router.get('/:demoId', function (req, res, next) {
         case '2':
             console.log("demo 2 requested")
             demoController.d2(rgbmatrix, canvas);
-            break;   
+            break;
+        case '3':
+            console.log("demo 3 requested")
+            demoController.d3(rgbmatrix, canvas);
+            break;
+        case '4':
+            console.log("demo 4 requested")
+            demoController.d4(rgbmatrix, canvas);
+            break;
+        case '5':
+                console.log("demo 5 requested")
+                demoController.d5(rgbmatrix, canvas);
+                break;    
     }
-    
+
     res.json({ "status": "Demo running" });
 });
 
