@@ -1,6 +1,0 @@
-
-primitives = {
-
-}
-
-module.exports = primitives

@@ -10,7 +10,6 @@ router.get('/', function(req, res, next) {
 /* GET home page. */
 router.post('/mode', function(req, res, next) {
   var rgbmatrix = req.app.get('matrix');
-  //console.log(rgbmatrix)
   res.json({"status": "mode set"})
 });
 

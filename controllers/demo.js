@@ -34,24 +34,8 @@ demo = {
       ctx.font = "20px Arial";
       ctx.rotate(20 * Math.PI / 180);
       ctx.fillText("Hello World", 0, 0);
-      var w = rgbmatrix.width();
-      var h = rgbmatrix.height();
-      
-      const buffer = canvas.toBuffer("image/png");
-      //fs.writeFileSync("./"+Date.now()+".png", buffer);
 
-      var rgba = ctx.getImageData(0, 0, w, h).data
-      var newArray = new Uint8ClampedArray(w*h*3);
-      for(var i=0, counter=0; i<rgba.length; i++){
-        if(i % 4 < 3){
-          newArray[counter++] = rgba[i]
-        }
-      }
-      for(var j=0; j<100; j++){
-        console.log(newArray[j])
-      }
-      const image = Buffer.from(newArray);
-      rgbmatrix.drawBuffer(image, w,h).sync();
+      utils.publish(ctx, rgbmatrix)
       await utils.wait(99999999);
     }
     
