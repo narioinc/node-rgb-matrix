@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const matrix = require('rpi-led-matrix');
-const { createCanvas, loadImage } = require('canvas')
-const canvas = createCanvas(128, 64)
+//const { createCanvas, loadImage } = require('canvas')
+//const canvas = createCanvas(128, 64)
 
 var indexRouter = require('./routes/index');
 var demoRouter = require('./routes/demo');
@@ -23,12 +23,12 @@ app.use('/demo', demoRouter)
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -61,6 +61,13 @@ const runtimeOptions = {
 const rgbmatrix = new matrix.LedMatrix(matrixOptions, runtimeOptions);
 rgbmatrix.brightness(50).sync();
 app.set("matrix", rgbmatrix);
-app.set("canvas", canvas);
+
+var Konva = require('konva');
+var stage = new Konva.Stage({
+  width: rgbmatrix.width(),
+  height: rgbmatrix.height(),
+});
+
+app.set("stage", stage)
 
 module.exports = app;

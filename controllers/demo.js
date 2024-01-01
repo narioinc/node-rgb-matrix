@@ -1,7 +1,5 @@
 var utils = require('../utils/utils')
 const gsap = require('gsap')
-//require('node-easel');
-//var Matter = require('matter-js')
 
 demo = {
   d0: function (rgbmatrix) {
@@ -28,18 +26,20 @@ demo = {
     await utils.wait(9999999999);
 
   },
-  d2: async function (rgbmatrix, canvas) {
-    const ctx = canvas.getContext('2d')
+  d2: async function (rgbmatrix, stage) {
+    var layers = utils.getLayers(stage)
+    var ctx = layers[0].getContext();
     ctx.fillStyle = "#ff0000";
     ctx.font = "20px Arial";
-    ctx.rotate(20 * Math.PI / 180);
+    //ctx.rotate(20 * Math.PI / 180);
     ctx.fillText("Hello World", 0, 0);
 
-    utils.publish(ctx, rgbmatrix)
+    utils.publishLayers(layers, rgbmatrix)
     await utils.wait(99999999);
   },
-  d3: async function (rgbmatrix, canvas) {
-    const ctx = canvas.getContext('2d')
+  d3: async function (rgbmatrix, stage) {
+    var layers = utils.getLayers(stage)
+    var ctx = layers[0].getContext();
     ctx.fillStyle = "blue";
     let position = { x: 0, y: 0 };
     let style = { color: "red" }
@@ -56,7 +56,8 @@ demo = {
         ctx.clearRect(0, 0, 128, 64);
         // redraw the square at it's new position
         ctx.fillRect(position.x, position.y, 10, 10);
-        utils.publish(ctx, rgbmatrix)
+        //utils.publish(ctx, rgbmatrix)
+        utils.publishLayers(layers, rgbmatrix)
         //await utils.wait(1000);
       }
     });
@@ -72,52 +73,67 @@ demo = {
 
     });
   },
-  d4: async function (rgbmatrix, canvas) {
-    const ctx = canvas.getContext('2d')
-    var stage = new createjs.Stage(canvas);
-    var shape = new createjs.Shape();
-    shape.graphics.beginFill('red').drawRect(0, 0, 120, 120);
-    stage.addChild(shape);
-    stage.update();
-    utils.publish(ctx, rgbmatrix)
+  d4: async function (rgbmatrix, stage) {
+      var layers = utils.getLayers(stage)
+      var rect1 = new Konva.Rect({
+        x: 0,
+        y: 0,
+        width: 30,
+        height: 10,
+        fill: 'green',
+        stroke: 'blue',
+        strokeWidth: 1,
+      });
+
+      var oval = new Konva.Ellipse({
+        x: stage.width() / 2,
+        y: stage.height() / 2,
+        radiusX: 20,
+        radiusY: 10,
+        fill: 'yellow',
+        stroke: 'red',
+        strokeWidth: 0.5,
+      });
+
+      layers[0].add(oval);
+      layers[0].add(rect1);
+      stage.add(layers[0]);
+      layers[0].draw();
+      utils.publishLayers(layers, rgbmatrix)
   },
-  d5: async function (rgbmatrix, canvas) {
-    /*const ctx = canvas.getContext('2d')
-    var Engine = Matter.Engine,
-      Render = Matter.Render,
-      Runner = Matter.Runner,
-      Bodies = Matter.Bodies,
-      Composite = Matter.Composite;
-
-    // create an engine
-    var engine = Engine.create();
-
-    // create a renderer
-    var render = Render.create({
-      canvas: canvas,
-      engine: engine,
-      options: {
-        width: 128,
-        height: 64
-    }
+  d5: async function (rgbmatrix, stage) {
+    var layers = utils.getLayers(stage)
+    var rect = new Konva.Rect({
+      x: 5,
+      y: 2,
+      width: 30,
+      height: 15,
+      fill: 'green',
+      stroke: 'black',
+      strokeWidth: 2,
+      opacity: 0.2,
     });
 
-    // create two boxes and a ground
-    var boxA = Bodies.rectangle(400, 200, 80, 80);
-    var boxB = Bodies.rectangle(450, 50, 80, 80);
-    var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+    layers[0].add(rect);
+    var tween = new Konva.Tween({
+      node: rect,
+      duration: 5,
+      x: 40,
+      y: 30,
+      fill: 'red',
+      easing: Konva.Easings.BounceEaseOut,
+      rotation: 180,
+      opacity: 1,
+      stroke: 'green',
+      strokeWidth: 1,
+      scaleX: 1.4,
+      onUpdate: () => {
+        utils.publishLayers(layers, rgbmatrix)
+      }
+    });
 
-    // add all of the bodies to the world
-    Composite.add(engine.world, [boxA, boxB, ground]);
+    tween.play();
 
-    // run the renderer
-    Render.run(render);
-
-    // create runner
-    var runner = Runner.create();
-
-    // run the engine
-    Runner.run(runner, engine);*/
   }
 
 }

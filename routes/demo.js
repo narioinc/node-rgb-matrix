@@ -6,7 +6,7 @@ var demoController = require('../controllers/demo')
 router.get('/:demoId', function (req, res, next) {
     //clearInterval(intervalId);
     var rgbmatrix = req.app.get('matrix');
-    var canvas = req.app.get('canvas')
+    var stage = req.app.get("stage")
     console.log("running demo")
     switch (req.params.demoId) {
         case '0':
@@ -19,19 +19,19 @@ router.get('/:demoId', function (req, res, next) {
             break;
         case '2':
             console.log("demo 2 requested")
-            demoController.d2(rgbmatrix, canvas);
+            demoController.d2(rgbmatrix, stage);
             break;
         case '3':
             console.log("demo 3 requested")
-            demoController.d3(rgbmatrix, canvas);
+            demoController.d3(rgbmatrix, stage);
             break;
         case '4':
             console.log("demo 4 requested")
-            demoController.d4(rgbmatrix, canvas);
+            demoController.d4(rgbmatrix, stage);
             break;
         case '5':
                 console.log("demo 5 requested")
-                demoController.d5(rgbmatrix, canvas);
+                demoController.d5(rgbmatrix, stage);
                 break;    
     }
 

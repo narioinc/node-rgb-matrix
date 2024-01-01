@@ -15,6 +15,7 @@
     "gsap": "^3.12.4",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "konva": "^9.3.0",
     "matter-js": "^0.19.0",
     "morgan": "~1.9.1",
     "rpi-led-matrix": "^1.14.0"
