@@ -2,9 +2,19 @@ var utils = require('../utils/utils')
 const gsap = require('gsap')
 
 demo = {
+  
+  /**
+   * Simple Demo to clear the matrix display
+   * @param {*} rgbmatrix 
+   */
   d0: function (rgbmatrix) {
     rgbmatrix.clear().sync()
   },
+
+  /**
+   * Simple Demo to show a circle and rect 
+   * using the RGBMatrix APIs
+   */
   d1: async function (rgbmatrix) {
 
     rgbmatrix
@@ -26,6 +36,13 @@ demo = {
     await utils.wait(9999999999);
 
   },
+
+  /**
+   * Advanced Demo to showcase writing text with off the shelf
+   * Fonts instead of pixel fonts limitation of the RGBMatrix APIs 
+   * @param {*} rgbmatrix 
+   * @param {*} stage 
+   */
   d2: async function (rgbmatrix, stage) {
     var layers = utils.getLayers(stage)
     var ctx = layers[0].getContext();
@@ -37,6 +54,11 @@ demo = {
     utils.publishLayers(layers, rgbmatrix)
     await utils.wait(99999999);
   },
+
+  /**
+   * Advanced Demo showcasing GSAP animation capabilities
+   *  on the RGBMAtrix. Uses Node canvas for Drawing shapes
+   */
   d3: async function (rgbmatrix, stage) {
     var layers = utils.getLayers(stage)
     var ctx = layers[0].getContext();
@@ -73,6 +95,13 @@ demo = {
 
     });
   },
+
+  /**
+   * Advanced Demo showcasing Konva Layers and Konva shapes features
+   * Multiple layers dispatched to RGBmAtrix using PublishLayers utils method
+   * @param {*} rgbmatrix 
+   * @param {*} stage 
+   */
   d4: async function (rgbmatrix, stage) {
       var layers = utils.getLayers(stage)
       var rect1 = new Konva.Rect({
@@ -101,6 +130,13 @@ demo = {
       layers[0].draw();
       utils.publishLayers(layers, rgbmatrix)
   },
+
+  /**
+   * Advanced Demo showing Konva Tween APIs
+   * on Konva Shapes.
+   * @param {*} rgbmatrix 
+   * @param {*} stage 
+   */
   d5: async function (rgbmatrix, stage) {
     var layers = utils.getLayers(stage)
     var rect = new Konva.Rect({

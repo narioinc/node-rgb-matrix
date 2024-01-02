@@ -12,7 +12,7 @@ utils = {
   },
 
   /***
-   *  PUBLISH FUCNTION TO PUBLISH A CONTEXT ctx to THE RGB MATRIX
+   *  PUBLISH FUNCTION TO PUBLISH A CONTEXT ctx to THE RGB MATRIX
    *  THIS WILL DRAW WHATEVER IS THERE IN THE CANVAS ON TO THE 
    *  RGB MATRIX
    */
@@ -30,6 +30,13 @@ utils = {
     const image = Buffer.from(newArray);
     rgbmatrix.drawBuffer(image, w, h).sync();
   },
+
+  /**
+   * Publish a single Konvba Layer object to the RGBMatrix
+   * 
+   * @param {*} layer 
+   * @param {*} rgbmatrix 
+   */
   publishLayer: function(layer, rgbmatrix){
     var ctx = layer.getContext()
     var rgba = ctx.getImageData(0, 0, w, h).data
@@ -42,11 +49,16 @@ utils = {
     const image = Buffer.from(newArray);
     rgbmatrix.drawBuffer(image, w, h).sync();
   },
+  /**
+   * Publish a multiple Konva Layers to the RGBMatrix
+   * 
+   * @param {*} layer 
+   * @param {*} rgbmatrix 
+   */
   publishLayers: function (layers, rgbmatrix) {
     var w = rgbmatrix.width();
     var h = rgbmatrix.height();
     var ctxs = []
-    //console.log("Number of published layers: " + layers.length )
     for (layer of layers) {
       ctxs.push(layer.getContext())
     }
@@ -64,10 +76,23 @@ utils = {
     }
 
   },
+
+  /**
+   * Function to export the current frame to a PNG file
+   * File saved with currentr epoch timestamp
+   * @param {*} canvas 
+   */
   exportCanvas: function (canvas) {
     const buffer = canvas.toBuffer("image/png");
     fs.writeFileSync("./" + Date.now() + ".png", buffer);
   },
+
+  /**
+   * Fucntion to get the layers of a Konva Stage object
+   * if no layers are found, a single layer is added and returned
+   * @param {*} stage 
+   * @returns 
+   */
   getLayers: function (stage) {
     var layers = stage.getLayers();
     if (layers.length <= 0) {
