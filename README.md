@@ -11,6 +11,7 @@ THE FULL POWER OF THE JS CANVAS APIS at our disposale.
 RGB matrix 
     * https://github.com/konvajs/konva
     * https://github.com/Automattic/node-canvas
+    * Ensure that you build node-canvas from source if running on anything other than x86 chip arch
 * Allows handling 2 or more canvas elements to create layers. Max 3 canvases work OK on a rpi 2 and 3B +. Rpi 4 and 5 may support more layers but not tested yet    
 * Shapes and Animation only limited to your imagination. Have examples showing how to integrate with GSAP APIs for advances tweens and Easing
     * https://gsap.com/
