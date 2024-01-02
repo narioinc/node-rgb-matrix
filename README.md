@@ -20,7 +20,7 @@ RGB matrix
 
 # Run the demo
 * ```git clone https://github.com/narioinc/node-rgb-matrix```
-* run ``` npm install --save ```
+* run ``` npm install --save --build-from-source```
 * RUN ``` sudo npm start ``` to start the server on port 3000 on all network interfaces.
 
 # REST APIs
