@@ -21,6 +21,7 @@ RGB matrix
 # Run the demo
 * ```git clone https://github.com/narioinc/node-rgb-matrix```
 * run ``` npm install --save ```
+* RUN ``` sudo npm start ``` to start the server on port 3000 on all network interfaces.
 
 # REST APIs
 The express routes are evolving and currently we have the following endpoints
