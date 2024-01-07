@@ -35,8 +35,6 @@ demo = {
         rgbmatrix.height() / 2
       )
       .sync();
-    await utils.wait(9999999999);
-
   },
 
   /**
@@ -87,9 +85,8 @@ demo = {
         ctx.clearRect(0, 0, 128, 64);
         // redraw the square at it's new position
         ctx.fillRect(position.x, position.y, 10, 10);
-        //utils.publish(ctx, rgbmatrix)
         utils.publishLayers(layers, rgbmatrix)
-        //await utils.wait(1000);
+
       }
     });
     gsap.gsap.to(style, {
@@ -98,7 +95,6 @@ demo = {
       repeat: 2,
       ease: "elastic.out(1,0.3)",
       onUpdate: () => {
-        //console.log(style.color);
         ctx.fillStyle = style.color;
       }
 
@@ -136,7 +132,6 @@ demo = {
     layers[0].add(oval);
     layers[0].add(rect1);
     stage.add(layers[0]);
-    //layers[0].draw();
     utils.publishLayers(layers, rgbmatrix)
   },
 
@@ -245,7 +240,6 @@ demo = {
     Runner.run(runner, engine);
 
     Matter.Events.on(render, "afterRender", function(event){
-      //console.log("event fired !!")
       utils.publishLayers(layers, rgbmatrix)
     })
 
