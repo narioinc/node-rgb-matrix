@@ -1,5 +1,7 @@
 var utils = require('../utils/utils')
 const gsap = require('gsap')
+var CRender = require('../utils/render')
+const Matter = require("matter-js");
 
 demo = {
   d0: function (rgbmatrix) {
@@ -74,34 +76,35 @@ demo = {
     });
   },
   d4: async function (rgbmatrix, stage) {
-      var layers = utils.getLayers(stage)
-      var rect1 = new Konva.Rect({
-        x: 0,
-        y: 0,
-        width: 30,
-        height: 10,
-        fill: 'green',
-        stroke: 'blue',
-        strokeWidth: 1,
-      });
+    var layers = utils.getLayers(stage)
+    var rect1 = new Konva.Rect({
+      x: 0,
+      y: 0,
+      width: 30,
+      height: 10,
+      fill: 'green',
+      stroke: 'blue',
+      strokeWidth: 1,
+    });
 
-      var oval = new Konva.Ellipse({
-        x: stage.width() / 2,
-        y: stage.height() / 2,
-        radiusX: 20,
-        radiusY: 10,
-        fill: 'yellow',
-        stroke: 'red',
-        strokeWidth: 0.5,
-      });
+    var oval = new Konva.Ellipse({
+      x: stage.width() / 2,
+      y: stage.height() / 2,
+      radiusX: 20,
+      radiusY: 10,
+      fill: 'yellow',
+      stroke: 'red',
+      strokeWidth: 0.5,
+    });
 
-      layers[0].add(oval);
-      layers[0].add(rect1);
-      stage.add(layers[0]);
-      layers[0].draw();
-      utils.publishLayers(layers, rgbmatrix)
+    layers[0].add(oval);
+    layers[0].add(rect1);
+    stage.add(layers[0]);
+    layers[0].draw();
+    utils.publishLayers(layers, rgbmatrix)
   },
   d5: async function (rgbmatrix, stage) {
+    rgbmatrix.clear().sync()
     var layers = utils.getLayers(stage)
     var rect = new Konva.Rect({
       x: 5,
@@ -134,6 +137,73 @@ demo = {
 
     tween.play();
 
+  },
+  d6: async function (rgbmatrix, stage) {
+    var layers = utils.getLayers(stage)
+
+    var Engine = Matter.Engine,
+      Render = CRender,
+      Runner = Matter.Runner,
+      Bodies = Matter.Bodies,
+      Composite = Matter.Composite;
+
+    var engine = Engine.create();
+    Engine.clear(engine);
+
+    // create a renderer
+    var render = Render.create({
+      canvas: layers[0].getNativeCanvasElement(),
+      engine: engine,
+      
+      options: {
+        width: rgbmatrix.width(),
+        height: rgbmatrix.height(),
+        wireframes: false
+    }
+    });
+
+    // create two boxes and a ground
+    var wbodies = []
+    for(var i=0; i<10; i++){
+    var boxA = Bodies.rectangle(40, 0, 8, 8, {
+      render: {
+         fillStyle: 'red',
+         strokeStyle: 'blue',
+         lineWidth: 0.5
+    }
+    });
+    wbodies.push(boxA)
+  }
+
+    var boxB = Bodies.rectangle(45, 30, 10, 10);
+    var ground = Bodies.rectangle(64, 60, 128, 10, { isStatic: true })
+
+    wbodies.push(boxB)
+    wbodies.push(ground)
+    // add all of the bodies to the world
+    Composite.clear(engine.world, false)
+    Composite.add(engine.world, wbodies);
+    console.log("num objects", Composite.allBodies(engine.world).length)
+
+    // run the renderer
+    Render.run(render);
+
+    // create runner
+    var runner = Runner.create();
+
+    // run the engine
+    Runner.run(runner, engine);
+
+    Matter.Events.on(render, "afterRender", function(event){
+      //console.log("event fired !!")
+      utils.publishLayers(layers, rgbmatrix)
+    })
+
+    Matter.Events.on(engine, "collisionStart", function(event){
+      //console.log("collission event fired !!")
+      //utils.publishLayers(layers, rgbmatrix)
+      //utils.exportCanvas(layers[0].getNativeCanvasElement())
+    })
   }
 
 }

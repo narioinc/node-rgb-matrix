@@ -30,9 +30,14 @@ router.get('/:demoId', function (req, res, next) {
             demoController.d4(rgbmatrix, stage);
             break;
         case '5':
-                console.log("demo 5 requested")
-                demoController.d5(rgbmatrix, stage);
-                break;    
+            console.log("demo 5 requested")
+            demoController.d5(rgbmatrix, stage);
+            break;
+        case '6':
+            console.log("demo 6 requested")
+            demoController.d6(rgbmatrix, stage);
+            break;
+
     }
 
     res.json({ "status": "Demo running" });
