@@ -17,7 +17,8 @@ RGB matrix
     * https://gsap.com/
 
 * Still tries to maintain 60 fps as much as possible. Further Optimization are still possible if someone is willing to guide me.
-* Works great from RPi 2 and above. Not tested with RPi Zero W 2. Other Linux boards may need a rebuild of the Node Canvas lib.  
+* Works great from RPi 2 and above. Not tested with RPi Zero W 2. Other Linux boards may need a rebuild of the Node Canvas lib.
+* Integrates with Matterjs for cool physics stuff..see Demos  
 
 # Run the demo
 * ```git clone https://github.com/narioinc/node-rgb-matrix```
@@ -32,7 +33,6 @@ The express routes are evolving and currently we have the following endpoints
 
 
 # TBD
-* Try and Integrate Matter JS render engine with node canvas and konva to create advanced physics APIs for LED matrix displays. 
 * Improve diplay FPS further with the way frames are dispatched 
 * P5.JS Support in demo soon !! once i wrap my head around their Canvas wrapper. 
 

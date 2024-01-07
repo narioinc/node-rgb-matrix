@@ -174,6 +174,13 @@ demo = {
     tween.play();
 
   },
+  /**
+   * Advanced Demo showcasing Matterjs physics library for rendering
+   * physics simulations. 
+   * Checkout custom rendered that works with node canvas in utils/render.js
+   * @param {*} rgbmatrix 
+   * @param {*} stage 
+   */
   d6: async function (rgbmatrix, stage) {
     var layers = utils.getLayers(stage)
 
