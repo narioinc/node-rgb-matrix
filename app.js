@@ -38,7 +38,7 @@ app.use(function (err, req, res, next) {
 });
 
 //*************************** */
-// CREATE MATRIX OBJECT
+// Create RGBMATRIX object and configure it
 //
 //**************************** */
 const matrixOptions = {
@@ -62,6 +62,10 @@ const rgbmatrix = new matrix.LedMatrix(matrixOptions, runtimeOptions);
 rgbmatrix.brightness(50).sync();
 app.set("matrix", rgbmatrix);
 
+/************************************
+ *  Initiate Konva Objects
+ * 
+ ************************************/
 var Konva = require('konva');
 var stage = new Konva.Stage({
   width: rgbmatrix.width(),
