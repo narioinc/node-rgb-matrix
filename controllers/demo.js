@@ -47,14 +47,21 @@ demo = {
    */
   d2: async function (rgbmatrix, stage) {
     var layers = utils.getLayers(stage)
-    var ctx = layers[0].getContext();
-    ctx.fillStyle = "#ff0000";
-    ctx.font = "20px Arial";
-    //ctx.rotate(20 * Math.PI / 180);
-    ctx.fillText("Hello World", 0, 0);
+    var simpleText = new Konva.Text({
+      x: stage.width() / 2,
+      y: 15,
+      text: 'Simple Text',
+      fontSize: 10,
+      strokeWidth: 0.5,
+      fontFamily: 'Calibri',
+      fill: 'green',
+    });
+
+    layers[0].add(simpleText);
+    layers[0].draw();
 
     utils.publishLayers(layers, rgbmatrix)
-    await utils.wait(99999999);
+    utils.exportCanvas(layers[0].getNativeCanvasElement())
   },
 
   /**
@@ -129,7 +136,7 @@ demo = {
     layers[0].add(oval);
     layers[0].add(rect1);
     stage.add(layers[0]);
-    layers[0].draw();
+    //layers[0].draw();
     utils.publishLayers(layers, rgbmatrix)
   },
 
