@@ -1,4 +1,4 @@
-![alt text]()
+![alt text](https://raw.githubusercontent.com/narioinc/node-rgb-matrix/main/header.png)
 
 # node-rgb-matrix
 A nodejs express server to control RGB Matrix based on HUB75 connector
