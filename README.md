@@ -22,6 +22,10 @@ RGB matrix
 * Works great from RPi 2 and above. Not tested with RPi Zero W 2. Other Linux boards may need a rebuild of the Node Canvas lib.
 * Integrates with Matterjs for cool physics stuff..see Demos  
 
+# Dependencies
+Before running the node installation, please ensure the following packages are installed (this is on any debian system, for your package manager, please adjust the command accordingly
+``` sudo apt install libpixman-1-dev libcairo2-dev libpango1.0-dev libjpeg8-dev libgif-dev ```
+
 # Run the demo
 * ```git clone https://github.com/narioinc/node-rgb-matrix```
 * run ``` npm install --save --build-from-source```
