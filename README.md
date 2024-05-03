@@ -19,17 +19,24 @@ RGB matrix
     * https://gsap.com/
 
 * Still tries to maintain 60 fps as much as possible. Further Optimization are still possible if someone is willing to guide me.
-* Works great from RPi 2 and above. Not tested with RPi Zero W 2. Other Linux boards may need a rebuild of the Node Canvas lib.
+* Works great from RPi 2 and above. Tested with RPi Zero W 2, see the specific section on Rpi Zero 2W below. Other Linux boards may need a rebuild of the Node Canvas lib.
 * Integrates with Matterjs for cool physics stuff..see Demos  
 
 # Dependencies
 Before running the node installation, please ensure the following packages are installed (this is on any debian system, for your package manager, please adjust the command accordingly
-``` sudo apt install libpixman-1-dev libcairo2-dev libpango1.0-dev libjpeg8-dev libgif-dev ```
+
+``` sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev ```
 
 # Run the demo
 * ```git clone https://github.com/narioinc/node-rgb-matrix```
 * run ``` npm install --save --build-from-source```
 * RUN ``` sudo npm start ``` to start the server on port 3000 on all network interfaces.
+
+## Note for Rpi Zero 2W users
+* Change the version of the rpi-rgb-matrix library to v 1.11.1. tested on rpi zero 2w to work. v1.12, 1.13 and 1.14 get stuck for a long time during compilation. Change to ```"rpi-led-matrix": "1.11.1"``` in package.json. You can try v1.12.2 or above if you feel brave !!
+* Ensure that you can run npm install like so ```npm install --foreground-scripts --loglevel verbose```
+* Something about the --foreground-scripts option makes the nodegyp steps work without getting stuck on the zero 2w. Thanks to @riffnshred for bringing this to my notice.
+* Compilation on the zero 2w does take a lot of time. Please be patient !! It took me excess of > 20 minutes to compile the nodejs c bindings. No issues on Rpi 3 and newer.  
 
 # REST APIs
 The express routes are evolving and currently we have the following endpoints
